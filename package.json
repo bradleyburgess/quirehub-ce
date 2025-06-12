@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev:css": "sass src/assets/css/styles.scss src/static/assets/css/styles.css --watch --silence-deprecation import"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "sass": "^1.89.2"
+  }
+}
