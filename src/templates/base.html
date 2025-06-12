@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if debug %}
+      <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}?ver={% now 'U' %}" />
+    {% else %}
+      <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
+    {% endif %}
+    <title>
+      {% block title %}
+        QuireHub
+      {% endblock %}
+    </title>
+    <script>
+      ;(function () {
+        const savedThemePreference = localStorage.getItem('theme')
+        if (savedThemePreference) {
+          document.documentElement.setAttribute('data-bs-theme', savedThemePreference)
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    {% block body %}
+
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
+    <script>
+      ;(function () {
+        const togglers = document.querySelectorAll('.js-theme-toggler')
+        Array.from(togglers).forEach(function (toggler) {
+          toggler.addEventListener('click', function () {
+            const theme = document.documentElement.getAttribute('data-bs-theme')
+            const newTheme = theme == 'light' ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-bs-theme', newTheme)
+            localStorage.setItem('theme', newTheme)
+          })
+        })
+      })()
+    </script>
+  </body>
+</html>

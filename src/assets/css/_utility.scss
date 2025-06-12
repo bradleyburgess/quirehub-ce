@@ -1,0 +1,15 @@
+.square {
+  aspect-ratio: 1/1;
+}
+
+.hide-light {
+  [data-bs-theme="light"] & {
+    display: none;
+  }
+}
+
+.hide-dark {
+  [data-bs-theme="dark"] & {
+    display: none;
+  }
+}
