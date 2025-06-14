@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation."
@@ -32,4 +34,4 @@ ACCOUNT_SIGNUP_FIELDS = [
 ]
 ACCOUNT_LOGIN_METHODS = {"email"}
 
-# LOGIN_REDIRECT_URL = reverse_lazy("pages.dashboard")
+LOGIN_REDIRECT_URL = reverse_lazy("dashboard:index")

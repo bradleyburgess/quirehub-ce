@@ -13,3 +13,7 @@
     display: none;
   }
 }
+
+.textarea-no-resize textarea {
+  resize: none;
+}

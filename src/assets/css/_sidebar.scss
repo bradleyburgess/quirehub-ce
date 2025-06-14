@@ -1,0 +1,20 @@
+@use "colors";
+
+.sidebar {
+  width: 20rem;
+  height: calc(100vh - var(--navbar-height));
+}
+
+.offcanvas .nav-link,
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  color: var(--bs-body-color);
+}
+
+.offcanvas .icon,
+.sidebar .icon {
+  position: relative;
+  bottom: 0.1em;
+}

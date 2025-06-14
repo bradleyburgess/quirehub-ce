@@ -1,5 +1,7 @@
 node_modules/
 src/static/assets/css/
+src/static/assets/js/
+.parcel-cache/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

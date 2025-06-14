@@ -21,7 +21,15 @@ repos:
     rev: v1.16.0
     hooks:
       - id: mypy
-        additional_dependencies: ["django", "django-stubs", "django-environ", "django-allauth"]
+        additional_dependencies:
+          [
+            "django",
+            "django-stubs",
+            "django-environ",
+            "django-allauth",
+            "django-crispy-forms",
+            "crispy-bootstrap5",
+          ]
         args: [--config-file=pyproject.toml]
         files: ^src/
 
