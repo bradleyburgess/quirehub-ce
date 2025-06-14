@@ -24,7 +24,7 @@ DJANGO_SETTINGS_MODULE = "config.settings"
 addopts = "-ra --import-mode=importlib"
 django_find_project = false
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-pythonpath = [".", "src", "tests"]
+pythonpath = ["src"]
 
 [tool.django-stubs]
 django_settings_module = "config.settings"
