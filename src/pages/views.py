@@ -1,19 +1,26 @@
-from django.contrib.auth import authenticate, get_user_model, login
-from django.http import HttpRequest, HttpResponse
+from django.contrib.auth import get_user_model, login
+from django.core.cache import cache
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
 from choirs.forms import ChoirCreateForm
+from choirs.models import Choir
 from users.forms import AdminSignupForm
 
 User = get_user_model()
 
 
-def home_page(request: HttpRequest) -> HttpResponse:
+def index_page(request: HttpRequest) -> HttpResponse:
     return render(request, "pages/home.html")
 
 
 def initial_setup(request: HttpRequest) -> HttpResponse:
+    choir_exists = cache.get("choir_exists")
+    if choir_exists:
+        if request.method == "POST":
+            return HttpResponseBadRequest("Choir already exists")
+        return redirect(reverse_lazy("pages:index"))
     admin_form = AdminSignupForm()
     choir_form = ChoirCreateForm()
     if request.method == "POST":
@@ -31,13 +38,20 @@ def initial_setup(request: HttpRequest) -> HttpResponse:
         admin_form = AdminSignupForm(_admin_form)
         choir_form = ChoirCreateForm(_choir_form)
         if admin_form.is_valid() and choir_form.is_valid():
-            user = User.objects.create_user(  # type: ignore
+            user = User.objects.create_superuser(  # type: ignore
                 email=admin_form.cleaned_data["email"],
                 password=admin_form.cleaned_data["password1"],
+                first_name=admin_form.cleaned_data["first_name"],
+                last_name=admin_form.cleaned_data["last_name"],
             )
-            user = authenticate(request, email=user.email, password=user.password)
-            login(request, user)
-            return redirect(reverse_lazy("pages.home"))
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+            Choir.objects.create(
+                name=choir_form.cleaned_data["name"],
+                description=choir_form.cleaned_data["description"],
+                created_by=user,
+            )
+            cache.set("choir_exists", True)
+            return redirect(reverse_lazy("dashboard:index"))
     return render(
         request,
         "pages/initial-setup.html",

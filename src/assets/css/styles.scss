@@ -1,3 +1,5 @@
+@use "colors";
+
 // Google Fonts: DM Sans
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
@@ -6,31 +8,19 @@
 
 $font-family-base: "DM Sans";
 
-$white: #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-$black: #000;
+// $body-bg: colors.$gray-100;
+// $body-bg-dark: #000814;
+// $body-color: #000814;
+// $body-color-dark: #f8f9fa;
 
-$primary: #7209b7;
-$secondary: #073b4c;
+// $primary: #7209b7;
+// $secondary: #073b4c;
 $success: #06d6a0;
 $warning: #ffd166;
 $danger: #ef476f;
 $info: #118ab2;
 $light: #ffffff;
 $dark: #050505;
-
-$body-bg: $gray-100;
-$body-bg-dark: #000814;
-$body-color: #000814;
-$body-color-dark: #f8f9fa;
 
 // Custom Variables
 
@@ -60,19 +50,20 @@ $container-max-widths: map-merge(
 @import "layout";
 @import "icon";
 @import "utility";
+@import "dropdown";
+@import "sidebar";
 
-.theme-toggler {
+.messages-wrapper {
+  width: 100%;
+  margin-inline: auto;
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 2rem;
 }
 
-.btn-transparent {
-  [data-bs-theme="light"] & {
-    @extend .btn-light;
-  }
-  [data-bs-theme="dark"] & {
-    @extend .btn-dark;
-  }
-  background-color: transparent;
+:root {
+  --navbar-height: 3.85rem;
+}
+
+.navbar {
+  height: var(--navbar-height, 3.85rem);
 }

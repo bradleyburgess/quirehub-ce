@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+  {% include 'partials/_navbar.html' %}
+  <div class="container-xxxl d-lg-flex gap-5">
+    {% include 'partials/_sidebar.html' %}
+    <main class="pt-5">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+  </div>
+{% endblock %}

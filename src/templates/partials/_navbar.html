@@ -1,0 +1,104 @@
+<header class="container-xxxl">
+  <nav class="navbar navbar-expand-lg">
+    <a href="{% url 'pages:index' %}" class="navbar-brand">QuireHub</a>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      {% if user.is_authenticated %}
+        {% comment %}If not on the app pages{% endcomment %}
+        {% if not request.path|slice:':4' == '/app' %}
+          <a href="{% url 'dashboard:index' %}" class="btn btn-primary rounded-pill">
+            Go to app
+            <span class="icon rounded-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </span>
+          </a>
+        {% endif %}
+
+        {% comment %}Avatar dropdown{% endcomment %}
+        <div class="dropdown">
+          <button class="btn dropdown-toggle avatar" data-bs-toggle="dropdown" aria-expanded="false"><img class="icon icon-md rounded-circle" src="https://ui-avatars.com/api/?name={{ user.get_full_name }}" alt="" /></button>
+
+          {% comment %}Dropdown Menu{% endcomment %}
+          <div class="dropdown-menu dropdown-menu-end">
+            {% comment %}Profile{% endcomment %}
+            <div class="d-flex flex-column align-items-center gap-2">
+              <img class="icon icon-lg rounded-circle" src="https://ui-avatars.com/api/?name={{ user.get_full_name }}" alt="" />
+              <p class="small fw-bold text-center">{{ user.get_full_name }}</p>
+            </div>
+
+            <hr />
+
+            {% comment %}Dark Mode{% endcomment %}
+            <div class="px-2 d-flex justify-content-between align-items-center">
+              <button class="btn btn-transparent rounded-circle square js-theme-toggler">
+                <span class="icon hide-light">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                  </svg>
+                </span>
+                <span class="icon hide-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                  </svg>
+                </span>
+              </button>
+              <span class="small">Dark Mode</span>
+            </div>
+
+            {% comment %}Log out{% endcomment %}
+            <div class="px-2">
+              <div class="d-grid w-full">
+                <button type="button" class="btn btn-outline-danger d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#logout-modal">
+                  <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                    </svg>
+                  </span>
+                  <span>Log out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        {% comment %}Not logged in{% endcomment %}
+        <a href="{% url 'account_login' %}" class="btn btn-primary">Log In</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {% comment %}Modal{% endcomment %}
+  <div class="modal fade" id="logout-modal" tabindex="-1" aria-labelledby="logout-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="logout-modal-label">Are you sure?</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Are you sure you want to log out?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+            <span class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+              </svg>
+            </span>
+            <span>Go back</span>
+          </button>
+          <form action="{% url 'account_logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger text-light">
+              <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                </svg>
+              </span>
+              <span>Log out</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

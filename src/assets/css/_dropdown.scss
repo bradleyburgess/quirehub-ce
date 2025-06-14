@@ -1,0 +1,26 @@
+@import "colors";
+
+.dropdown-menu.show {
+  animation: fadeIn 0.1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.avatar {
+  &.dropdown-toggle {
+    --bs-btn-active-border-color: var(--bs-border-color-translucent);
+  }
+
+  &.dropdown-toggle::after {
+    display: none;
+    // vertical-align: 0.15em;
+    // border-top-color: $gray-600;
+  }
+}

@@ -1,0 +1,15 @@
+.btn-transparent {
+  [data-bs-theme="light"] & {
+    @extend .btn-light;
+  }
+  [data-bs-theme="dark"] & {
+    @extend .btn-dark;
+  }
+  background-color: transparent;
+}
+
+.theme-toggler {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}

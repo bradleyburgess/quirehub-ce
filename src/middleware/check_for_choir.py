@@ -25,5 +25,5 @@ class CheckForChoirMiddleware:
         if not choir_exists:
             if path.startswith("/initial-setup"):
                 return self.get_response(request)
-            return redirect(reverse_lazy("pages.initial-setup"))
+            return redirect(reverse_lazy("pages:initial-setup"))
         return self.get_response(request)

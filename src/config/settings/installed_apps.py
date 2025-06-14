@@ -12,10 +12,14 @@ INSTALLED_APPS = (
     + [
         "allauth",
         "allauth.account",
+        "crispy_forms",
+        "crispy_bootstrap5",
     ]
     # 3. QuireHub
     + [
+        "base",
         "users",
+        "dashboard",
         "choirs",
     ]
 )
