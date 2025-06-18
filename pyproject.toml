@@ -1,0 +1,30 @@
+[tool.ruff]
+exclude = ["**/migrations/*.py", "node_modules/"]
+line-length = 88
+lint.ignore = ["E203", "F403"]
+lint.select = ["E", "F", "I", "B", "UP", "SIM"]
+target-version = "py313"
+
+[tool.mypy]
+check_untyped_defs = false
+disallow_untyped_defs = false
+exclude = ["^tests/", "node_modules/"]
+ignore_missing_imports = true
+mypy_path = "src"
+plugins = ["mypy_django_plugin.main"]
+python_version = "3.13"
+strict = false
+warn_unused_ignores = false
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+addopts = "-ra --import-mode=importlib"
+django_find_project = false
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+pythonpath = ["src"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings"

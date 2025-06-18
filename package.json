@@ -1,0 +1,28 @@
+{
+  "name": "QuireHub",
+  "source": [
+    "src/assets/js/main.js",
+    "src/assets/js/head.js"
+  ],
+  "targets": {
+    "default": {
+      "distDir": "src/static/assets/js/"
+    }
+  },
+  "scripts": {
+    "build:css": "sass src/assets/css/styles.scss src/static/assets/css/styles.css--silence-deprecation import",
+    "build:js": "parcel build --no-source-maps",
+    "build": "run-p build:css build:js",
+    "dev:css": "sass src/assets/css/styles.scss src/static/assets/css/styles.css --watch --silence-deprecation import",
+    "dev:js": "parcel watch",
+    "dev": "run-p dev:css dev:js"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "parcel": "^2.15.2",
+    "sass": "^1.89.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
